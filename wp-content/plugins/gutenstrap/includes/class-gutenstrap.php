@@ -76,8 +76,7 @@ class Gutenstrap {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
+		$this->define_hooks();
 
 	}
 
@@ -114,13 +113,8 @@ class Gutenstrap {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-gutenstrap-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-gutenstrap-blocks.php';
 
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-gutenstrap-public.php';
 
 		$this->loader = new Gutenstrap_Loader();
 
@@ -150,30 +144,18 @@ class Gutenstrap {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function define_hooks() {
 
-		$plugin_admin = new Gutenstrap_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_blocks = new Gutenstrap_Blocks( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'init', $plugin_blocks, 'blocks_init' );
+		
 
-	}
-
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_public_hooks() {
-
-		$plugin_public = new Gutenstrap_Public( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_blocks, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_blocks, 'enqueue_scripts' );
 
 	}
+
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

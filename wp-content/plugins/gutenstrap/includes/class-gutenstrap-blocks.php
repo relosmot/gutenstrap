@@ -1,13 +1,13 @@
 <?php
 
 /**
- * The admin-specific functionality of the plugin.
+ * The block-specific functionality of the plugin.
  *
  * @link       https://tomsoler.com
  * @since      1.0.0
  *
  * @package    Gutenstrap
- * @subpackage Gutenstrap/admin
+ * @subpackage Gutenstrap/includes
  */
 
 /**
@@ -17,10 +17,10 @@
  * enqueue the admin-specific stylesheet and JavaScript.
  *
  * @package    Gutenstrap
- * @subpackage Gutenstrap/admin
+ * @subpackage Gutenstrap/includes
  * @author     Thomas Soler <tom@tomsoler.com>
  */
-class Gutenstrap_Admin {
+class Gutenstrap_Blocks {
 
 	/**
 	 * The ID of this plugin.
@@ -73,7 +73,7 @@ class Gutenstrap_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/gutenstrap-admin.css', array(), $this->version, 'all' );
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/gutenstrap-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,8 +96,14 @@ class Gutenstrap_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gutenstrap-admin.js', array( 'jquery' ), $this->version, false );
+		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gutenstrap-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+	
+	
+	public function blocks_init() {
+		// First block
+		register_block_type_from_metadata( plugin_dir_path( dirname( dirname( __FILE__ ) ) ) . 'src/blocks/firstblock' );
 	}
 
 }

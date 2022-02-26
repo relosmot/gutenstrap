@@ -1,0 +1,10 @@
+{
+	"apiVersion": 2,
+	"name": "gutenstrap/firstblock",
+	"title": "First Block",
+	"description": "My first blcok",
+	"category": "text",
+	"icon": "format-status",
+	"textdomain": "gutenstrap",
+	"editorScript": "file:./index.js"
+}
