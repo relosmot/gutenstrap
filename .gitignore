@@ -61,7 +61,7 @@ node_modules/
 !README.md
 !CHANGELOG.md
 !composer.json
-.idea/.gitignore
+/.idea/.gitignore
 
 # track favicon files, if they exist
 !android-chrome-*.png
